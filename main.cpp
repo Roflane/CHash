@@ -1,6 +1,6 @@
-﻿#include <cstdint>
+﻿#include <iostream>
+#include <cstdint>
 #include <cstdio>
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -55,7 +55,6 @@ int encBlock(const char *fileName) {
         LOG("Press enter to continue\n");
         std::cin.ignore();
         std::cin.get();
-        continue;
     }
 }
 
