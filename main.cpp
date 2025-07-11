@@ -30,24 +30,33 @@ int encBlock(const char *fileName) {
     for (int i = 0; i < 5; i++) rnd[i] = RandomByte(0, 255);
 
 
-    for (int pos = 20, i = 0; i < 5; i++, pos += 4) {
+    for (int pos = 20, i = 0, factor = RandomByte(0, 255); i < 5; i++, pos += 4) {
         if (writeFile(fileName, pos, obf[i] ^ rnd[i]) == 0) {
-            LOG("Data wrote at pos %d with value %X\n", pos, obf[i] ^ rnd[i]);
+            LOG("Data wrote at pos %d with value %X\n", pos, obf[i] ^ (rnd[i] | factor));
         }
         else return -1;
     }
     return 0;
 }
 
-int main() {
-    std::string fileName;
-    LOG("Enter file name: ");
-    std::cin >> fileName;
+[[noreturn]] void runCHash() {
+    while (true) {
+        system("cls");
 
-    if (encBlock(fileName.c_str()) == 0) {
-        LOG("\nFile hash has been changed\n");
+        std::string fileName;
+        LOG("Enter file name: ");
+        std::cin >> fileName;
+
+        if (encBlock(fileName.c_str()) == 0) {
+            LOG("\nFile hash has been changed\n");
+        }
+        else LOG("Unexpected error\n");
+
+        LOG("Press enter to continue\n");
+        std::cin.ignore();
+        std::cin.get();
+        continue;
     }
-    else LOG("Unexpected error\n");
-    std::cin.ignore();
-    std::cin.get();
 }
+
+int main() { runCHash(); }
