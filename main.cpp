@@ -31,8 +31,9 @@ int encBlock(const char *fileName) {
 
 
     for (int pos = 20, i = 0, factor = RandomByte(0, 255); i < 5; i++, pos += 4) {
-        if (writeFile(fileName, pos, obf[i] ^ rnd[i]) == 0) {
-            LOG("Data wrote at pos %d with value %X\n", pos, obf[i] ^ (rnd[i] | factor));
+        auto enc = obf[i] ^ (rnd[i] | factor);
+        if (writeFile(fileName, pos, enc) == 0) {
+            LOG("Data wrote at pos %d with value %X\n", pos, factor);
         }
         else return -1;
     }
