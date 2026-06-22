@@ -7,13 +7,12 @@ selected byte blocks using XOR with hardware-generated randomness.
 
 ### How it works
 - Selects a target file and byte position
-- Generates random bytes via `RDRAND` x86 instruction (Be careful using Linux systems)
+- Generates random bytes using `std::random_device`
 - XORs bytes with an obfuscation key and writes back to file
 
 ### Usage
 1. Select file
-2. Dump file info (size, metadata)
-3. Write encrypted block at chosen position
+2. Will modify last bytes of file
 
 ### Demo
 <h4 align="center">Before</h4>
